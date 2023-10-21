@@ -1,0 +1,2 @@
+DROP TABLE IF EXISTS hash;
+DROP TABLE IF EXISTS challenge;

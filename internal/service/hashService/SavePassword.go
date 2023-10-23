@@ -26,7 +26,7 @@ func (hs *HashService) SavePassword(ctx context.Context, password entity.Passwor
 	hasher.Write([]byte(password.Get()))
 
 	previous := hex.EncodeToString(hasher.Sum(nil))
-	length := len(previous) / 2
+	length := len(previous) / 4
 	previous = previous[0:length]
 
 	for _, challenge := range challenges {

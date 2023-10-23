@@ -25,8 +25,6 @@ func (pgr *PostgresRepo) CheckHash(ctx context.Context, hashes []entity.Hash) ([
 		sql.Where("chg_? = ?", i, hash.Get())
 	}
 
-	fmt.Printf("DEBUG sql: %s\n", sql.String())
-
 	if err = sql.Scan(context.Background(), &values); err != nil {
 		return nil, fmt.Errorf("%s: %w", place, err)
 	}

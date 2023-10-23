@@ -62,7 +62,7 @@ components:
                       type: string
                 example:
                 - number: 0
-                  hash: a0418f9949165b15
+                  hash: 5f234897b7ce1fb6
 paths:
   /ping:
     get:

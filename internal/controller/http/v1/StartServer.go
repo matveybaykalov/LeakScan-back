@@ -14,6 +14,7 @@ func (ctr *HTTPController) StartServer(cfg config.HTTPConfig) *http.Server {
 		Handler: ctr.router,
 	}
 
+	ctr.log.Info("starting server")
 	go func() {
 		if err := srv.ListenAndServe(); err != nil && err != http.ErrServerClosed {
 			ctr.log.Fatalf("listen: %s\n", err)

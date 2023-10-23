@@ -22,3 +22,5 @@ CREATE TABLE IF NOT EXISTS challenge (
     chg_6 int,
     chg_7 int
 );
+
+INSERT INTO challenge VALUES (DEFAULT, 10, 20, 30, 40, 50, 60, 70, 80);

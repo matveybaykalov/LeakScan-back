@@ -1,0 +1,118 @@
+openapi: 3.0.0
+info:
+  title: LeakScan
+  description: 'Some description about LeakScan service'
+  version: 0.0.1
+servers:
+  - url: http://127.0.0.1:7880
+components:
+  schemas:
+    error:
+      type: object
+      properties:
+        error:
+          type: string
+          example: Some error description
+    pong:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Pong
+
+    challenge:
+      type: object
+      properties:
+        need_more:
+          type: boolean
+          example: true
+        new_challenge:
+          type: integer
+          example: 10
+        probable_passwords:
+          type: array
+          items:
+            type: string
+            example: my-leak-password
+
+  requestBodies:
+    password:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              password:
+                type: string
+                example: my-leak-password
+    hashes:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              hashes:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    number:
+                      type: integer
+                    hash:
+                      type: string
+                example:
+                - number: 0
+                  hash: a0418f9949165b15
+paths:
+  /ping:
+    get:
+      responses:
+        '200':
+          description: Used to check the availability of the service
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/pong"
+  /start:
+    get:
+      responses:
+        '200':
+          description: Used to get the first challenge
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/challenge"
+        '500':
+          description: An internal error has occurred
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error"
+  /add-password:
+    post:
+      description: Used to add a password to the leak database
+      requestBody:
+          $ref: "#/components/requestBodies/password"
+      responses:
+        '200':
+          description: OK
+        '500':
+          description: An internal error has occurred
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error"
+  /check-password:
+    post:
+      description: Used to check the presence of a password in the leak database
+      requestBody:
+          $ref: "#/components/requestBodies/hashes"
+      responses:
+        '200':
+          description: OK
+        '500':
+          description: An internal error has occurred
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error"

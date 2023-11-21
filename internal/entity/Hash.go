@@ -1,7 +1,7 @@
 package entity
 
 import (
-	errs "backend/internal/erorrs"
+	errs "backend/internal/errors"
 	"fmt"
 	"regexp"
 )

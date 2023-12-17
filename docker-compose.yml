@@ -1,0 +1,19 @@
+version: "3"
+
+services:
+  app:
+    build: .
+    ports:
+        - "8084:6789"
+    environment:
+        - HTTPPORT=6789
+        - PGDSN=postgres://postgres:pg-pass12@db:5432?sslmode=disable
+    depends_on:
+        - db
+  db:
+    image: postgres
+    restart: always
+    environment:
+        - POSTGRES_PASSWORD=pg-pass12
+    volumes:
+        - ./migrations/postgres/v0.0.1/up.sql:/docker-entrypoint-initdb.d/init.sql
